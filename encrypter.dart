@@ -1,5 +1,17 @@
 class Encrypter {
   const Encrypter._();
+  static final numbers = [
+    "0",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+  ];
   static final alphabet = [
     "I",
     "W",
@@ -89,6 +101,15 @@ class Encrypter {
       int keyIndex = i % keyList.length;
 
       if (char.isNumeric()) {
+        int? newIndex = isEncrypt
+            ? _getNextIndex(numbers, char, keyList[keyIndex])
+            : _getPreviousIndex(numbers, char, keyList[keyIndex]);
+
+        if (newIndex == null) {
+          throw Exception("Null next index");
+        } else {
+          text += numbers[newIndex];
+        }
       } else if (RegExp(r'[a-zA-Z]').hasMatch(char)) {
         int? newIndex = isEncrypt
             ? _getNextIndex(alphabet, char, keyList[keyIndex])
